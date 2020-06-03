@@ -1,4 +1,5 @@
 %% uzywanie detektora do pracy
+% wymagany toolbox: Computer Vision Toolbox
 close all; clc;
 
 detector = vision.CascadeObjectDetector('straw_4_detector.xml');
@@ -15,24 +16,12 @@ img_8 = imread('DLA_TESTU/test_8.jpg');
 img_9 = imread('DLA_TESTU/test_9.jpg');
 
 % jak wiadac niekotre wychodza lepiej, a inne gorzej. Zesataw uczacy zostal
-% zbudoawny na zbyt malej liczbie zdjec. Dlatego nie ktore restowy wychodza
-% lepiej a inne gorzej.
-
-
-% wynik - dobry
-figure(1)
-subplot(1,2,1)
-imshow(img_5, [])
-title('orginal')
-
-subplot(1,2,2)
-bbox = step(detector,img_5);
-straw_detection = insertObjectAnnotation(img_5,'rectangle',bbox,'Strawberry');
-imshow(straw_detection, []);
+% zbudoawny na zbyt malej liczbie zdjec. Dlatego jedne przypadki testowe 
+% wychodza lepiej a inne gorzej.
 
 
 % wynik - poprawny
-figure(2)
+figure(1)
 subplot(1,2,1)
 imshow(img_4, [])
 title('orginal')
@@ -44,7 +33,7 @@ imshow(straw_detection, []);
 
 
 % wynik - tragiczny :)
-figure(3)
+figure(2)
 subplot(1,2,1)
 imshow(img_9, [])
 title('orginal')
@@ -55,7 +44,16 @@ straw_detection = insertObjectAnnotation(img_9,'rectangle',bbox,'Strawberry');
 imshow(straw_detection, []);
 
 
+% wynik - dobry
+figure(3)
+subplot(1,2,1)
+imshow(img_5, [])
+title('orginal')
 
+subplot(1,2,2)
+bbox = step(detector,img_5);
+straw_detection = insertObjectAnnotation(img_5,'rectangle',bbox,'Strawberry');
+imshow(straw_detection, []);
 
 %% SUBPLOTY
 

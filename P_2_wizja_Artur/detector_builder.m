@@ -1,7 +1,12 @@
 % NIE TRZEBA TEGO ROBIC - straw_4_detector juz w folderze
+
+% wymagany toolbox: Computer Vision Toolbox
 clear all; close all;clc;
 
-data= load('straw_4_dataset.mat');
+
+% straw_4_dataset.mat-przygotowany zesataw danych na podsatwie zdjeæ przy
+% u¿yciu Matlab: imageLabeler.
+data= load('straw_4_dataset.mat');      
 source = [data.gTruth.DataSource.Source];
 values = [data.gTruth.LabelData];
 
