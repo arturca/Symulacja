@@ -6,7 +6,7 @@ source = [data.gTruth.DataSource.Source];
 values = [data.gTruth.LabelData];
 
 positiveInstances = [source, values];
-negativeFolder = 'tes_negative';
+negativeFolder = 'detector_builder_negative';
 negativeImages = imageDatastore(negativeFolder);
 
 trainCascadeObjectDetector('straw_4_detector.xml',positiveInstances, ...
