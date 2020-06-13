@@ -6,7 +6,9 @@ clear all; close all;clc;
 
 % straw_4_dataset.mat-przygotowany zesataw danych na podsatwie zdjeæ przy
 % u¿yciu Matlab: imageLabeler.
-data= load('straw_4_dataset.mat');      
+% data= load('straw_4_dataset.mat');  
+% data= load('test_do_delete.mat');
+data= load('straw_4_wider.mat');
 source = [data.gTruth.DataSource.Source];
 values = [data.gTruth.LabelData];
 
