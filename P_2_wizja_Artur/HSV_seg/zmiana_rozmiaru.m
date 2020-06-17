@@ -1,9 +1,9 @@
 clear all; close all; clc;
-image = imread('dzialka_art/da_17.jpg');
-figure(1)
-imshow(image, []);
+image = imread('dir');
+% figure(1)
+% imshow(image, []);
 
-image = imresize(image,[576, 1024]);
-figure(2)
-imshow(image, [])
-imwrite(image, 'dzialka_small/da_17_s.jpg');
+image = imresize(image,[636, 1024]);
+% figure(2)
+% imshow(image, [])
+imwrite(image, 'st_small/da_63_s.jpg');

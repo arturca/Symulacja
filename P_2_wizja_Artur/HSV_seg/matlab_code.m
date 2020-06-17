@@ -7,11 +7,11 @@ format compact;
 fontSize = 16;
 
 % read an image:
-rgbImage = imread('dzialka_small/da_4_s.jpg');
+rgbImage = imread('st_small/da_4_s.jpg');
 [rows, columns, numberOfColorChannels] = size(rgbImage);
 
 figure(1)
-subplot(1,2,1)
+% subplot(1,2,1)
 imshow(rgbImage, [])
 
 
@@ -25,8 +25,8 @@ regions_with_strawberry = regionprops(BW, 'all');
 
 [img_h, img_w,img_s] = size(rgbImage);
 
-% figure(3)
-subplot(1,2,2)
+figure(3)
+% subplot(1,2,2)
 imshow(rgbImage)
 hold on
 % hp = impixelinfo();
@@ -48,18 +48,8 @@ for i=1:size(regions_with_strawberry,1)
         'EdgeColor','r', 'LineWidth', 3)
         x = regions_with_strawberry(i).BoundingBox(1)-10;
         y = regions_with_strawberry(i).BoundingBox(2)-10;
-        text(x,y, lebeled_strawberry(i),'Color','red','BackgroundColor','yellow','FontSize',8);
+        text(x,y, lebeled_strawberry(i),'Color','red','BackgroundColor','yellow','FontSize',10);
    end
 end
 
-
-
-
-% for i=1:size(rip_val,2)
-%     rectangle('Position', regions_with_strawberry(i).BoundingBox,...
-%   'EdgeColor','r', 'LineWidth', 3)
-%     x = regions_with_strawberry(i).BoundingBox(1)-10;
-%     y = regions_with_strawberry(i).BoundingBox(2)-10;
-%     text(x,y, lebeled_strawberry(i),'Color','red','BackgroundColor','yellow','FontSize',3);
-% end
 
