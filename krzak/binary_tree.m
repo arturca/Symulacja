@@ -145,18 +145,19 @@ d=0;
      for i=1:1:mN^n
         line([A(n,i,1),A(n+1,i,1)],[A(n,i,2),A(n+1,i,2)],[A(n,i,3),A(n+1,i,3)],'Color',[0.1,0.5,0],'LineWidth',30);
         rnd_num4 = rand();
+        rnd_size = 0.1+0.1*(rand()-0.5);
         if rnd_num4<0.2 & (A(n,i,:) ~= [1 1 1])
             % good strwber
-            strawberry([A(n,i,1),A(n,i,2),A(n,i,3)],0.1,[1 0 0]);
+            strawberry([A(n,i,1),A(n,i,2),A(n,i,3)],rnd_size,[1 0 0]);
             good_strwber = [good_strwber; [A(n,i,1),A(n,i,2),A(n,i,3)]];
             %plot3(A(n,i,1),A(n,i,2),A(n,i,3),'.','markersize',50,'color',[1 0 0]); 
         elseif 0.2<rnd_num4 & rnd_num4<0.25 & (A(n,i,:) ~= [1 1 1])
             %green strwber
-            strawberry([A(n,i,1),A(n,i,2),A(n,i,3)],0.1, [0 1 0]);
+            strawberry([A(n,i,1),A(n,i,2),A(n,i,3)],rnd_size, [0 1 0]);
             green_strwber = [green_strwber; [A(n,i,1),A(n,i,2),A(n,i,3)]];
         elseif 0.25<rnd_num4 & rnd_num4<0.3 & (A(n,i,:) ~= [1 1 1])
             %rotten strwber
-            strawberry([A(n,i,1),A(n,i,2),A(n,i,3)],0.1, [0.7 0.5 0]);
+            strawberry([A(n,i,1),A(n,i,2),A(n,i,3)],rnd_size, [0.7 0.5 0]);
             rotten_strwber = [rotten_strwber; [A(n,i,1),A(n,i,2),A(n,i,3)]];
         end
     end  

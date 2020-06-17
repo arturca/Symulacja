@@ -127,3 +127,59 @@ if n > 1
 end
 
 sm = a*b;
+
+
+function h = leaf(centers,fsize,angle,direction)
+% leaf for strawberry, for private use only.
+x = [0:0.01:1,0.99:-0.01:0]*fsize*3;
+y = [sin(pi*(0:0.01:1)),-sin(pi*(0.99:-0.01:0))]*fsize;
+x = repmat(x,2,1);
+y = repmat(y,2,1);
+z = repmat([-fsize/40;fsize/40],1,size(x,2));
+% the upper surface
+h(1) = surface(x,y,z);
+h(1).FaceColor = [0 1 0.2];
+h(1).EdgeColor = 'none';
+set(gca,'DataAspectRatio',[1 1 1]);
+hold on
+% the lower surface
+h(2) = patch(x',y',z','g');
+% leaf vein
+hold on
+s0 = plot3([0,fsize*3;0,fsize*3]',[0 0;0 0],...
+    [fsize/40,fsize/40;-fsize/40,-fsize/40]');
+set(s0,'LineWidth',1.5,'Color','k');
+h = [h,s0'];
+% more branchings on the leaf vein
+xx = linspace(0,fsize*3,8);
+xx([1,end])=[];
+xsolve = [0.89324560021135820980940264746604,...
+    1.4330758498567331434356736755553,...
+    1.8291133943908810862131562859384,...
+    2.1593804246750885431034036290128,...
+    2.4548442667149027768253229434202,...
+    2.7315841774617883072049331955351]*fsize;
+ysolve = sin(pi/3/fsize*xsolve)*fsize;
+xs = [xx ,xx;xsolve,xsolve];
+X = repmat(xs,1,2);
+ys = [zeros(size(ysolve)) , zeros(size(ysolve));ysolve,-ysolve];
+Y = [ys,ys];
+Z = [ones(size(xs))*fsize/40,-ones(size(xs))*fsize/40];
+hold on
+s = plot3(X,Y,Z);
+h = [h,s'];
+set(s,'LineWidth',1.5,'Color','k');
+pos = [fsize*3/2 0 0];
+p = centers - pos;
+origin = p;
+for i = 1 : length(h)
+    h(i).XData = h(i).XData + p(1);
+    h(i).YData = h(i).YData + p(2);
+    h(i).ZData = h(i).ZData + p(3);
+    if nargin > 2
+        if nargin == 3
+            direction = [0 1 0];
+        end
+        rotate(h(i),direction,angle,origin);
+    end
+end
