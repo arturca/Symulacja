@@ -1,11 +1,16 @@
 function [BW,maskedRGBImage] = createMask(RGB)
 
 I = rgb2hsv(RGB);
-channel1MinGreen = 0.00;
+
+% figure('name', 'HSV')
+% subplot(2,1,1)
+% imshow(I, []);
+% hp = impixelinfo();
+channel1MinGreen = 0.08; %0.00
 channel1MaxGreen = 0.20;
 
 channel2MinGreen = 0.15;
-channel2MaxGreen = 0.60;
+channel2MaxGreen = 0.65; %0.60
 
 channel3MinGreen = 0.35;%0.5;
 channel3MaxGreen = 1.0;%1.0;
@@ -30,14 +35,19 @@ sliderBW_RED = (I(:,:,1) >= channel1MinRed ) & (I(:,:,1) <= channel1MaxRed) & ..
   (I(:,:,3) >= channel3MinRed ) & (I(:,:,3) <= channel3MaxRed);
     
 
-
+% 
+% subplot(2,1,2)
+% imshow(sliderBW_GREEN)
 
 % sliderBW = sliderBW_GREEN | sliderBW_RED;
 
 BW_GREEN = sliderBW_GREEN;
-SE = strel("disk",10)
+SE = strel("disk",8)
 BW_GREEN = imerode(BW_GREEN,SE);
 SE = strel("disk",12)
+
+
+
 BW_GREEN = imdilate(BW_GREEN,SE);
 BW_GREEN = bwareaopen(BW_GREEN, 60);
 BW_GREEN = imfill( BW_GREEN ,'holes');
@@ -57,10 +67,16 @@ BW_GREEN = imerode(BW_GREEN, SE);
 BW_RED = imerode(BW_RED, SE);
 
 
+
+
 BW =  BW_GREEN | BW_RED;
 
 BW = imfill(BW,'holes');
 % Initialize output masked image based on input image.
+
+% subplot(2,1,2)
+% imshow(BW)
+
 maskedRGBImage = RGB;
 % Set background pixels where BW is false to zero.
 maskedRGBImage(repmat(~BW,[1 1 3])) = 0;
