@@ -7,7 +7,7 @@ format compact;
 fontSize = 16;
 
 % read an image:
-rgbImage = imread('st_small/da_4_s.jpg');
+rgbImage = imread('st_small/da_1_s.jpg');
 [rows, columns, numberOfColorChannels] = size(rgbImage);
 
 figure(1)
@@ -45,7 +45,7 @@ for i=1:size(regions_with_strawberry,1)
         
         
         rectangle('Position', regions_with_strawberry(i).BoundingBox,...
-        'EdgeColor','r', 'LineWidth', 3)
+        'EdgeColor','r', 'LineWidth', 3);
         x = regions_with_strawberry(i).BoundingBox(1)-10;
         y = regions_with_strawberry(i).BoundingBox(2)-10;
         text(x,y, lebeled_strawberry(i),'Color','red','BackgroundColor','yellow','FontSize',10);

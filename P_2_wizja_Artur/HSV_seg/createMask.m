@@ -42,9 +42,9 @@ sliderBW_RED = (I(:,:,1) >= channel1MinRed ) & (I(:,:,1) <= channel1MaxRed) & ..
 % sliderBW = sliderBW_GREEN | sliderBW_RED;
 
 BW_GREEN = sliderBW_GREEN;
-SE = strel("disk",8)
+SE = strel("disk",8);
 BW_GREEN = imerode(BW_GREEN,SE);
-SE = strel("disk",12)
+SE = strel("disk",12);
 
 
 
@@ -54,14 +54,14 @@ BW_GREEN = imfill( BW_GREEN ,'holes');
 
 
 BW_RED = sliderBW_RED;
-SE = strel("disk",4)
+SE = strel("disk",4);
 BW_RED = imerode(BW_RED,SE);
-SE = strel("disk",10)
+SE = strel("disk",10);
 BW_RED = imdilate(BW_RED,SE);
 BW_RED = bwareaopen(BW_RED, 60);
 BW_RED = imfill( BW_RED ,'holes');
 
-SE = strel("disk",2)
+SE = strel("disk",2);
 
 BW_GREEN = imerode(BW_GREEN, SE);
 BW_RED = imerode(BW_RED, SE);
