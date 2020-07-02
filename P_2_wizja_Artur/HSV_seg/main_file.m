@@ -7,7 +7,7 @@ format compact;
 fontSize = 16;
 
 % read an image:
-rgbImage = imread('green_std/green_1.jpg');
+rgbImage = imread('st_small/da_11_s.jpg');
 [rows, columns, numberOfColorChannels] = size(rgbImage);
 
 % figure(1)
@@ -30,6 +30,9 @@ figure(2)
 imshow(rgbImage)
 hold on
 % hp = impixelinfo();
+regions_with_strawberry_table = struct2table(regions_with_strawberry);
+regions_with_strawberry_table = sortrows(regions_with_strawberry_table,-1);
+regions_with_strawberry = table2struct(regions_with_strawberry_table);
 
 for i=1:size(regions_with_strawberry,1)
    if regions_with_strawberry(i).Area > 500;
@@ -55,12 +58,9 @@ end
 figure(3)
 imshow(rgbImage)
 hold on
-regions_with_strawberry_table = struct2table(regions_with_strawberry);
-regions_with_strawberry_table = sortrows(regions_with_strawberry_table,-1);
-regions_with_strawberry = table2struct(regions_with_strawberry_table);
 regions_with_strawberry = regions_with_strawberry(1);
 for i=1:size(regions_with_strawberry,1)
-   if regions_with_strawberry(i).Area > img_h*img_w*0.01 %strawberry should have at least 1% of picture area
+   if regions_with_strawberry(i).Area > img_h*img_w*0.001 %strawberry should have at least 0,1% of picture area
         rip_val(i) = check_ripness(regions_with_strawberry(i).PixelList, rgbImage);
         [height, width] = size(regions_with_strawberry(i).Image);
         cent_x = regions_with_strawberry(i).Centroid(1);
@@ -79,5 +79,9 @@ for i=1:size(regions_with_strawberry,1)
         text(x,y, lebeled_strawberry(i),'Color','red','BackgroundColor','yellow','FontSize',10);
    end
 end
+
+(rip_val>0.7 & rip_val<1.1)
+
+(rip_val>0 & rip_val<0.4)
 
 
