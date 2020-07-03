@@ -192,11 +192,19 @@ function varargout = tsp_ga(varargin)
                 %zapisywanie obrazu do pliku
                 if iter == 1
                     imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
-                else
+                elseif mod(iter,5)==0 
                     imwrite(imind,cm,filename,'gif','WriteMode','append');
                 end
             end
         end
+        rte = optRoute([1:n 1]);
+        if dims > 2, plot3(hAx,xy(rte,1),xy(rte,2),xy(rte,3),'r.-');
+                else plot(hAx,xy(rte,1),xy(rte,2),'r.-'); end
+                title(hAx,sprintf('Total Distance = %1.4f, Iteration = %d',minDist,iter));
+                drawnow;
+                frame = getframe(); 
+                im = frame2im(frame); 
+                [imind,cm] = rgb2ind(im,256); 
         % Genetic Algorithm Operators
         randomOrder = randperm(popSize);
         for p = 4:4:popSize
@@ -229,17 +237,6 @@ function varargout = tsp_ga(varargin)
         end
         
     end
-    rte = optRoute([1:n 1]);
-        if dims > 2, plot3(hAx,xy(rte,1),xy(rte,2),xy(rte,3),'g.-');
-        else plot(hAx,xy(rte,1),xy(rte,2),'g.-'); end
-        title(hAx,sprintf('Total Distance = %1.4f, Iteration = %d',minDist,iter));
-        drawnow;
-        frame = getframe(); 
-        im = frame2im(frame); 
-        [imind,cm] = rgb2ind(im,256);
-        for i=1:5
-            imwrite(imind,cm,filename,'gif','WriteMode','append');
-        end
     if showWaitbar
         close(hWait);
     end
