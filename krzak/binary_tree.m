@@ -47,8 +47,7 @@ function [good_strwber, green_strwber, rotten_strwber, A, h] = FraktalT3D(n,r,ph
 %   rotten strawberries as well as matrix of all bush points and fiure
 %   handle. To get already generated plot, use this handle and function
 %   copyobj
-h=figure;
- axes('Parent',h);
+
  axis([-1 1 -1 1 -0.5 1])
 view(3);
 %axis equal

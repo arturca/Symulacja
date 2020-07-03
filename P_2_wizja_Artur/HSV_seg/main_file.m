@@ -7,7 +7,7 @@ format compact;
 fontSize = 16;
 
 % read an image:
-rgbImage = imread('st_small/da_11_s.jpg');
+rgbImage = imread('good_std/good_1.jpg');
 [rows, columns, numberOfColorChannels] = size(rgbImage);
 
 % figure(1)
