@@ -5,10 +5,13 @@ total_positive_good =  0;
 total_positive_green =  0;
 total_good = 0;
 total_green = 0;
+total_picked = 0;
+total_score = 0;
 
-for counter = 1:12
+
+for counter = 1:20
     figure(1)
-    subplot(3,4,counter);
+    subplot(4,5,counter);
     run("krzak/binary_tree")
     
     % run visual algo and recognise type of strawberry
@@ -24,6 +27,8 @@ for counter = 1:12
     
     positive_good = 0;
     positive_green = 0;
+    picked_on_bush = 0;
+    score_on_bush = 0;
     
     addpath './P_2_wizja_Artur/HSV_seg'
     
@@ -32,6 +37,11 @@ for counter = 1:12
         image = imread(strcat("P_2_wizja_Artur/HSV_seg/good_std/",current_filename.name));
         [good_present, green_present] = vision_algo(image);
         if (good_present == 1) positive_good = positive_good + 1; end
+        chance_to_pick = 1 - good_strwber(i,4);
+        if good_present & rand()<chance_to_pick %zbieramy
+            picked_on_bush = picked_on_bush + 1;
+            score_on_bush = score_on_bush + 10*good_strwber(i,4);
+        end
     end
     
     for i = 1:size(green_strwber,1)
@@ -61,14 +71,20 @@ for counter = 1:12
     else percent_pos_green = -1
     end
     
-    title(sprintf("good: %i/%i\ngreen: %i/%i"...
+    total_picked = total_picked + picked_on_bush;
+    total_score = total_score + score_on_bush;
+    
+    title(sprintf("rozpoznane:\ngood: %i/%i green: %i/%i\nzebrane: %i/%i\nscore on bush: %1.2f"...
         ,positive_good,size(good_strwber,1)...
-        ,positive_green,size(green_strwber,1)));
+        ,positive_green,size(green_strwber,1)...
+        ,picked_on_bush,positive_good...
+        ,score_on_bush));
     
 end
 
 total_percent_good = total_positive_good/total_good
 total_percent_green = total_positive_green/total_green
-sgtitle(sprintf("total good: %i/%i\ntotal green: %i/%i"...
+sgtitle(sprintf("rozpoznane\ntotal good: %i/%i total green: %i/%i\n total picked: %i\ntotal score: %1.2f"...
     ,total_positive_good,total_good...
-    ,total_positive_green,total_green));
+    ,total_positive_green,total_green...
+    ,total_picked,total_score));
