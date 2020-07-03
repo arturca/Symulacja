@@ -96,7 +96,7 @@ function varargout = tsp_ga(varargin)
     defaultConfig.showProg    = true;
     defaultConfig.showResult  = true;
     defaultConfig.showWaitbar = false;
-    
+    filename = 'animacja.gif';
     % Interpret user configuration inputs
     if ~nargin
         userConfig = struct();
@@ -185,6 +185,16 @@ function varargout = tsp_ga(varargin)
                 else plot(hAx,xy(rte,1),xy(rte,2),'r.-'); end
                 title(hAx,sprintf('Total Distance = %1.4f, Iteration = %d',minDist,iter));
                 drawnow;
+                frame = getframe(); 
+                im = frame2im(frame); 
+                [imind,cm] = rgb2ind(im,256); 
+    
+                %zapisywanie obrazu do pliku
+                if iter == 1
+                    imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+                else
+                    imwrite(imind,cm,filename,'gif','WriteMode','append'); 
+                end
             end
         end
         
