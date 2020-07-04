@@ -155,10 +155,10 @@ function varargout = tsp_ga(varargin)
     distHistory = zeros(1,numIter);
     tmpPop = zeros(4,n);
     newPop = zeros(popSize,n);
-    if showProg
-        figure('Name','TSP_GA | Current Best Solution','Numbertitle','off');
-        hAx = gca;
-    end
+%     if showProg
+%         figure('Name','TSP_GA | Current Best Solution','Numbertitle','off');
+%         hAx = gca;
+%     end
     if showWaitbar
         hWait = waitbar(0,'Searching for near-optimal solution ...');
     end
@@ -178,24 +178,24 @@ function varargout = tsp_ga(varargin)
         if minDist < globalMin
             globalMin = minDist;
             optRoute = pop(index,:);
-            if showProg
-                % Plot the Best Route
-                rte = optRoute([1:n 1]);               
-                if dims > 2, plot3(hAx,xy(rte,1),xy(rte,2),xy(rte,3),'r.-');
-                else plot(hAx,xy(rte,1),xy(rte,2),'r.-'); end
-                title(hAx,sprintf('Total Distance = %1.4f, Iteration = %d',minDist,iter));
-                drawnow;
-                frame = getframe(); 
-                im = frame2im(frame); 
-                [imind,cm] = rgb2ind(im,256); 
-    
-                %zapisywanie obrazu do pliku
-                if iter == 1
-                    imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
-                else
-                    imwrite(imind,cm,filename,'gif','WriteMode','append');
-                end
-            end
+%             if showProg
+%                 % Plot the Best Route
+%                 rte = optRoute([1:n 1]);               
+%                 if dims > 2, plot3(hAx,xy(rte,1),xy(rte,2),xy(rte,3),'r.-');
+%                 else plot(hAx,xy(rte,1),xy(rte,2),'r.-'); end
+%                 title(hAx,sprintf('Total Distance = %1.4f, Iteration = %d',minDist,iter));
+%                 drawnow;
+%                 frame = getframe(); 
+%                 im = frame2im(frame); 
+%                 [imind,cm] = rgb2ind(im,256); 
+%     
+%                 %zapisywanie obrazu do pliku
+%                 if iter == 1
+%                     imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+%                 else
+%                     imwrite(imind,cm,filename,'gif','WriteMode','append');
+%                 end
+%             end
         end
         % Genetic Algorithm Operators
         randomOrder = randperm(popSize);
@@ -228,43 +228,43 @@ function varargout = tsp_ga(varargin)
             waitbar(iter/numIter,hWait);
         end
         
-    end
-    rte = optRoute([1:n 1]);
-        if dims > 2, plot3(hAx,xy(rte,1),xy(rte,2),xy(rte,3),'g.-');
-        else plot(hAx,xy(rte,1),xy(rte,2),'g.-'); end
-        title(hAx,sprintf('Total Distance = %1.4f, Iteration = %d',minDist,iter));
-        drawnow;
-        frame = getframe(); 
-        im = frame2im(frame); 
-        [imind,cm] = rgb2ind(im,256);
-        for i=1:5
-            imwrite(imind,cm,filename,'gif','WriteMode','append');
-        end
+     end
+%     rte = optRoute([1:n 1]);
+%         if dims > 2, plot3(hAx,xy(rte,1),xy(rte,2),xy(rte,3),'g.-');
+%         else plot(hAx,xy(rte,1),xy(rte,2),'g.-'); end
+%         title(hAx,sprintf('Total Distance = %1.4f, Iteration = %d',minDist,iter));
+%         drawnow;
+%         frame = getframe(); 
+%         im = frame2im(frame); 
+%         [imind,cm] = rgb2ind(im,256);
+%         for i=1:5
+%             imwrite(imind,cm,filename,'gif','WriteMode','append');
+%         end
     if showWaitbar
         close(hWait);
     end
     
-    if showResult
-        % Plots the GA Results
-        figure('Name','TSP_GA | Results','Numbertitle','off');
-        subplot(2,2,1);
-        pclr = ~get(0,'DefaultAxesColor');
-        if dims > 2, plot3(xy(:,1),xy(:,2),xy(:,3),'.','Color',pclr);
-        else plot(xy(:,1),xy(:,2),'.','Color',pclr); end
-        title('Strawberry Locations');
-        subplot(2,2,2);
-        imagesc(dmat(optRoute,optRoute));
-        title('Distance Matrix');
-        subplot(2,2,3);
-        rte = optRoute([1:n 1]);
-        if dims > 2, plot3(xy(rte,1),xy(rte,2),xy(rte,3),'r.-');
-        else plot(xy(rte,1),xy(rte,2),'r.-'); end
-        title(sprintf('Total Distance = %1.4f',minDist));
-        subplot(2,2,4);
-        plot(distHistory,'b','LineWidth',2);
-        title('Best Solution History');
-        set(gca,'XLim',[0 numIter+1],'YLim',[0 1.1*max([1 distHistory])]);
-    end
+%     if showResult
+%         % Plots the GA Results
+%         figure('Name','TSP_GA | Results','Numbertitle','off');
+%         subplot(2,2,1);
+%         pclr = ~get(0,'DefaultAxesColor');
+%         if dims > 2, plot3(xy(:,1),xy(:,2),xy(:,3),'.','Color',pclr);
+%         else plot(xy(:,1),xy(:,2),'.','Color',pclr); end
+%         title('Strawberry Locations');
+%         subplot(2,2,2);
+%         imagesc(dmat(optRoute,optRoute));
+%         title('Distance Matrix');
+%         subplot(2,2,3);
+%         rte = optRoute([1:n 1]);
+%         if dims > 2, plot3(xy(rte,1),xy(rte,2),xy(rte,3),'r.-');
+%         else plot(xy(rte,1),xy(rte,2),'r.-'); end
+%         title(sprintf('Total Distance = %1.4f',minDist));
+%         subplot(2,2,4);
+%         plot(distHistory,'b','LineWidth',2);
+%         title('Best Solution History');
+%         set(gca,'XLim',[0 numIter+1],'YLim',[0 1.1*max([1 distHistory])]);
+%     end
     
     % Return Output
     if nargout
