@@ -116,3 +116,27 @@ sgtitle(sprintf("rozpoznane\ntotal good: %i/%i total green: %i/%i\n total picked
     ,total_positive_good,total_good...
     ,total_positive_green,total_green...
     ,total_picked,total_score));
+
+%%
+log_fig = figure();
+load('log.mat')
+bar3([positive_good;picked_on_bush;score_on_bush;positive_green])
+xlabel("numer krzaka")
+ylabel("parametry")
+legend("1 - iloœæ czerwonych truskawek wykrytych",...
+    "2 - iloœæ zebranych z krzaka truskawek",...
+    "3 - wynik z krzaka",...
+    "4 - iloœæ zielonych truskawek wykrytych",...
+    'Location','Northwest');
+saveas(log_fig,'log_fig.png')
+
+%%
+figure()
+load('wyniki.m')
+stem(positive_good,'ro','MarkerSize',5);
+hold on
+stem(positive_green,'k+','MarkerSize',10);
+stem(picked_on_bush,'bs','MarkerSize',10);
+xlabel('Iteracja');
+ylabel('Iloœæ truskawek');
+legend('Iloœæ dobrych','Iloœæ zielonych','Iloœæ zebranych z krzaka')
