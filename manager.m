@@ -9,13 +9,17 @@ total_picked = 0;
 total_score = 0;
 
 iterations = 50;
-score_on_bush = zeros(1,iterations);
+
 positive_good = zeros(1,iterations);
 positive_green = zeros(1,iterations);
-picked_on_bush = zeros(1,iterations);
+
 percent_pos_good = zeros(1,iterations);
 percent_pos_green = zeros(1,iterations);
+
 distance = zeros(1,iterations);
+
+picked_on_bush = zeros(1,iterations);
+score_on_bush = zeros(1,iterations);
 
 for counter = 1:iterations
     counter
@@ -34,10 +38,6 @@ for counter = 1:iterations
     n_rotten = length(rotten_pict_list);
     n_green = length(green_pict_list);
     
-    positive_good(counter) = 0;
-    positive_green(counter) = 0;
-    picked_on_bush(counter) = 0;
-    score_on_bush(counter) = 0;
     
     to_pick = [];
     
@@ -78,17 +78,17 @@ for counter = 1:iterations
     total_green = total_green + size(green_strwber,1);
     
     if size(good_strwber,1) ~= 0
-    percent_pos_good = positive_good/size(good_strwber,1);
+    percent_pos_good(counter) = positive_good(counter)/size(good_strwber,1);
     total_positive_good = total_positive_good + positive_good(counter);
     else
-        percent_pos_good = -1;
+        percent_pos_good(counter) = -1;
     end
     
     if size(green_strwber,1) ~= 0
-    percent_pos_green = positive_green/size(green_strwber,1);
+    percent_pos_green(counter) = positive_green(counter)/size(green_strwber,1);
     total_positive_green = total_positive_green + positive_green(counter);
     else
-        percent_pos_green = -1;
+        percent_pos_green(counter) = -1;
     end
     
     total_picked = total_picked + picked_on_bush(counter);
