@@ -9,9 +9,9 @@ total_picked = 0;
 total_score = 0;
 
 
-for counter = 1:20
+for counter = 1:10
     figure(1)
-    subplot(4,5,counter);
+    subplot(4,5,mod(counter-1,5)+1 + 10*floor((counter-1)/5));
     run("krzak/binary_tree")
     
     % run visual algo and recognise type of strawberry
@@ -29,14 +29,19 @@ for counter = 1:20
     positive_green = 0;
     picked_on_bush = 0;
     score_on_bush = 0;
+    to_pick = [];
     
     addpath './P_2_wizja_Artur/HSV_seg'
+    addpath './Komiwojazer_dzialajacy/Komiwojazer'
     
     for i = 1:size(good_strwber,1)
         current_filename = good_pict_list(randi(n_good,1));
         image = imread(strcat("P_2_wizja_Artur/HSV_seg/good_std/",current_filename.name));
         [good_present, green_present] = vision_algo(image);
-        if (good_present == 1) positive_good = positive_good + 1; end
+        if (good_present == 1) 
+            positive_good = positive_good + 1;
+            to_pick = [to_pick; good_strwber(i,1:3)];
+        end
         chance_to_pick = 1 - good_strwber(i,4);
         if good_present & rand()<chance_to_pick %zbieramy
             picked_on_bush = picked_on_bush + 1;
@@ -80,6 +85,14 @@ for counter = 1:20
         ,picked_on_bush,positive_good...
         ,score_on_bush));
     
+    
+    [distance,route] = komi(to_pick,to_pick(1,:));
+    figure(1);
+    subplot(4,5,mod(counter-1,5)+1 + 10*floor((counter-1)/5) + 5);
+    plot3(route(:,1),route(:,2),route(:,3),'g');
+    daspect([1 1 1])
+    axis([-1 1 -1 1 -0.5 1])
+    title(sprintf("distance: %2.2f",distance));
 end
 
 total_percent_good = total_positive_good/total_good
